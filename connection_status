@@ -1,0 +1,7 @@
+#!/bin/sh
+
+wifi_status=$(cat /sys/class/net/wlp4s0/operstate)
+ethernet_status=$(cat /sys/class/net/eno1/operstate)
+
+[ $wifi_status = "up" ] && echo "󰤨 up" || echo "󰤮 down"
+#[ $ethernet_status = "up" ] && echo " up" || echo "☹ down"

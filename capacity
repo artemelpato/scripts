@@ -1,0 +1,9 @@
+#!/bin/sh
+
+capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+
+[ $capacity -ge 0 -a $capacity -le 5 ] && echo "  $capacity"
+[ $capacity -gt 5 -a $capacity -le 30 ] && echo "  $capacity"
+[ $capacity -gt 30 -a $capacity -le 60 ] && echo "  $capacity"
+[ $capacity -gt 60 -a $capacity -le 80 ] && echo "  $capacity"
+[ $capacity -gt 80 -a $capacity -le 100 ] && echo "  $capacity"
