@@ -1,7 +1,17 @@
 #!/bin/sh
 
-wifi_status=$(cat /sys/class/net/wlp4s0/operstate)
-ethernet_status=$(cat /sys/class/net/eno1/operstate)
+up="󰤨"
+down="󰤮"
+output=""
 
-[ $wifi_status = "up" ] && echo "󰤨 up" || echo "󰤮 down"
-#[ $ethernet_status = "up" ] && echo " up" || echo "☹ down"
+for device in /sys/class/net/*; do
+    [ $(basename $device) = "lo" ] && continue
+
+    device_status=$(cat $device/operstate)
+    device_name=$(basename $device)
+
+    [ $device_status = "up" ] && icon=$up || icon=$down
+    output="$output $device_name $icon"
+done
+
+echo $output
