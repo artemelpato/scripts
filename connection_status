@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# В будущем можно выводить красивое имя через 
+# nmcli -t -f GENERAL.CONNECTION device show $device_name
 
 up="󰤨"
 down="󰤮"
@@ -11,7 +14,9 @@ for device in /sys/class/net/*; do
     device_name=$(basename $device)
 
     [ $device_status = "up" ] && icon=$up || icon=$down
-    output="$output $device_name $icon"
+
+    connection=$(nmcli -t -f GENERAL.CONNECTION device show enp3s0 | awk -F ':' '{ print $2 }')
+    output="$output $connection $icon"
 done
 
 echo $output
