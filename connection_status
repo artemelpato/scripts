@@ -13,10 +13,11 @@ for device in /sys/class/net/*; do
     device_status=$(cat $device/operstate)
     device_name=$(basename $device)
 
-    [ $device_status = "up" ] && icon=$up || icon=$down
-
-    connection=$(nmcli -t -f GENERAL.CONNECTION device show enp3s0 | awk -F ':' '{ print $2 }')
-    output="$output $icon $connection"
+    if [ $device_status = "up" ]; then
+        icon=$up
+        connection=$(nmcli -t -f GENERAL.CONNECTION device show $device_name | awk -F ':' '{ print $2 }')
+        output="$output $icon $connection"
+    fi
 done
 
 echo $output
