@@ -1,0 +1,12 @@
+#!/bin/sh
+
+is_mute=$(pamixer --get-mute)
+volume=$(pamixer --get-volume)
+
+[ $is_mute = "true" ] && echo "󰣽 mute" && exit 0
+[ $volume = "0" ] && echo "󰣽 $volume" && exit 0
+[ $volume -gt 0 -a $volume -le 20 ]  && echo "󰣾 $volume" && exit 0
+[ $volume -gt 20 -a $volume -le 40 ] && echo "󰣾 $volume" && exit 0
+[ $volume -gt 40 -a $volume -le 60 ] && echo "󰣶 $volume" && exit 0
+[ $volume -gt 60 -a $volume -le 80 ] && echo "󰣸 $volume" && exit 0
+[ $volume -gt 80 ]                   && echo "󰣺 $volume" && exit 0
